@@ -81,7 +81,7 @@ const Approve = () => {
   }
 
   return (
-    <div className="flex min-h-screen justify-center bg-background pb-40">
+    <div className="flex min-h-screen justify-center bg-background pb-72">
       <div className="w-full max-w-[430px] px-5 pt-6">
         {/* Header */}
         <div className="flex items-center mb-5">
