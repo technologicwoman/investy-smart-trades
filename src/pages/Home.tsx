@@ -3,6 +3,8 @@ import { useUserStore } from "@/store/userStore";
 import { ArrowRight, Search, Play } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 
+
+
 const tickers = [
   { name: "S&P 500", price: "5,428.12", change: "+0.83%", up: true },
   { name: "NASDAQ", price: "17,102.55", change: "+1.12%", up: true },
@@ -34,8 +36,9 @@ function formatDate() {
 
 const Home = () => {
   const navigate = useNavigate();
-  const { firstName } = useUserStore();
+  const { firstName, experience } = useUserStore();
   const name = firstName || "Investor";
+  const isBeginner = !experience || experience === "beginner";
 
   return (
     <div className="flex min-h-screen justify-center bg-background pb-24">
@@ -93,7 +96,7 @@ const Home = () => {
               color: "#00D4AA",
             }}
           >
-            ● Bullish
+            ● {isBeginner ? "Markets looking up" : "Bullish"}
           </span>
         </div>
 
@@ -163,7 +166,7 @@ const Home = () => {
         {/* Top movers */}
         <div className="mb-6">
           <p className="text-[13px] font-bold text-muted-foreground mb-3">
-            Top movers
+            Trending stocks
           </p>
           <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
             {topMovers.map((m) => (

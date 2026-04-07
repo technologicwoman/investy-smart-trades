@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { useUserStore } from "@/store/userStore";
 import BottomNav from "@/components/BottomNav";
 
 const featured = {
@@ -12,9 +13,9 @@ const featured = {
   summary:
     "Strong momentum above 50-day MA with high social sentiment and upcoming catalyst.",
   sentiment: [
-    { label: "Social: High", color: "#00D4AA" },
-    { label: "Technical: Buy", color: "#00F0A0" },
-    { label: "News: Positive", color: "#7C5CFC" },
+    { label: "Social: High", beginnerLabel: "People are talking about this", color: "#00D4AA" },
+    { label: "Technical: Buy", beginnerLabel: "Charts look good", color: "#00F0A0" },
+    { label: "News: Positive", beginnerLabel: "Good news coming", color: "#7C5CFC" },
   ],
   id: 1,
 };
@@ -44,6 +45,8 @@ const others = [
 
 const Trade = () => {
   const navigate = useNavigate();
+  const { experience } = useUserStore();
+  const isBeginner = !experience || experience === "beginner";
 
   return (
     <div className="flex min-h-screen justify-center bg-background pb-24">
@@ -105,7 +108,7 @@ const Trade = () => {
           {/* Confidence bar */}
           <div className="mb-3">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[11px] text-muted-foreground">AI Confidence</span>
+              <span className="text-[11px] text-muted-foreground">{isBeginner ? "How sure is Investy" : "AI Confidence"}</span>
               <span className="text-[11px] font-bold text-foreground">
                 {featured.confidence}%
               </span>
@@ -138,7 +141,7 @@ const Trade = () => {
                   className="inline-block h-1.5 w-1.5 rounded-full"
                   style={{ backgroundColor: s.color }}
                 />
-                {s.label}
+                {isBeginner ? s.beginnerLabel : s.label}
               </span>
             ))}
           </div>
@@ -149,7 +152,7 @@ const Trade = () => {
             className="w-full rounded-lg bg-primary py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
             style={{ borderRadius: "8px" }}
           >
-            See full strategy
+            {isBeginner ? "Learn more about this trade" : "See full strategy"}
           </button>
         </div>
 
@@ -183,7 +186,7 @@ const Trade = () => {
             {/* Confidence */}
             <div className="mb-2">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] text-muted-foreground">AI Confidence</span>
+                <span className="text-[11px] text-muted-foreground">{isBeginner ? "How sure is Investy" : "AI Confidence"}</span>
                 <span className="text-[11px] font-bold text-foreground">
                   {t.confidence}%
                 </span>
