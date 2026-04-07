@@ -45,6 +45,8 @@ const others = [
 
 const Trade = () => {
   const navigate = useNavigate();
+  const { experience } = useUserStore();
+  const isBeginner = !experience || experience === "beginner";
 
   return (
     <div className="flex min-h-screen justify-center bg-background pb-24">
